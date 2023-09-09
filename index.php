@@ -12,7 +12,7 @@ function handle_custom_route_request($request)
 {
   $posts = get_posts(array(
     'post_type' => 'post',
-    'posts_per_page' => -1,
+    'posts_per_page' => 10,
   ));
 
   $formatted_posts = array_map(function ($post) {
@@ -24,6 +24,7 @@ function handle_custom_route_request($request)
       'slug' => $post->post_name,
       'date' => $post->post_date,
       'featured_image' => get_the_post_thumbnail_url($post->ID),
+      'audio_url' => get_post_meta($post->ID, 'enclosure', true),
     );
   }, $posts);
 
